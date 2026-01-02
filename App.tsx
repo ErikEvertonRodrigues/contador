@@ -9,12 +9,21 @@ export default function App() {
     setCount(count + 1);
   }
 
+  function SetCountToZero() {
+    setCount(0);
+  }
+
   return (
     <View style={styles.container}>
       <Text>Número atual: {count}</Text>
       <Button 
         onPress={incrementCount}
         title='Adicionar 1'/>
+      <Button 
+        onPress={SetCountToZero}
+        title='Zerar contador'
+        color="#00ff00"
+        />
       <StatusBar style="auto" />
     </View>
   );
