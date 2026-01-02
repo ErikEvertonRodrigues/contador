@@ -9,6 +9,10 @@ export default function App() {
     setCount(count + 1);
   }
 
+  function incrementCountByTen() {
+    setCount(count + 10);
+  }
+
   function SetCountToZero() {
     setCount(0);
   }
@@ -16,14 +20,27 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Número atual: {count}</Text>
-      <Button 
-        onPress={incrementCount}
-        title='Adicionar 1'/>
-      <Button 
-        onPress={SetCountToZero}
-        title='Zerar contador'
-        color="#00ff00"
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={incrementCount}
+          title='Adicionar 1'/>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={incrementCountByTen}
+          title='Adicionar 10'
+          color="#ff0000"
         />
+      </View>
+      
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={SetCountToZero}
+          title='Zerar contador'
+          color="#00ff00"
+          />
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -36,4 +53,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  buttonContainer: {
+    marginTop: 20,
+  }
 });
