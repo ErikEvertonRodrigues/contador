@@ -1,20 +1,30 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
 
 export default function App() {
   const [count, setCount] = useState(0);
+  const [userInput, onChangeUserInput] = useState('1');
+
+  function isNumeric(str: string) {
+    return /^\d+$/.test(str);
+  }
 
   function incrementCount() {
     setCount(count + 1);
   }
 
-  function incrementCountByTen() {
-    setCount(count + 10);
-  }
-
   function SetCountToZero() {
     setCount(0);
+  }
+
+  function incrementByUserInput() {
+    if (!isNumeric(userInput)) {
+      Alert.alert('O texto digitado não é um número');
+    } else {
+      let num: number = Number(userInput);
+      setCount(count + num);
+    }
   }
 
   return (
@@ -27,10 +37,18 @@ export default function App() {
       </View>
 
       <View style={styles.buttonContainer}>
+        <Text style={styles.text}>Adicionar quantidade digitada pelo usuario</Text>
+        <TextInput
+          style={styles.textInput}
+          editable
+          maxLength={10}
+          value={userInput}
+          onChangeText={text => onChangeUserInput(text)}
+        />
         <Button
-          onPress={incrementCountByTen}
-          title='Adicionar 10'
-          color="#ff0000"
+          onPress={incrementByUserInput}
+          title='Adicionar'
+          color="#0f0"
         />
       </View>
       
@@ -38,7 +56,7 @@ export default function App() {
         <Button
           onPress={SetCountToZero}
           title='Zerar contador'
-          color="#00ff00"
+          color="#ff0000"
           />
       </View>
       <StatusBar style="auto" />
@@ -56,5 +74,18 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     marginTop: 20,
+    paddingHorizontal: 20,
+  },
+
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  textInput: {
+    margin: 10,
+    borderWidth: 1,
+    padding: 10,
   }
 });
